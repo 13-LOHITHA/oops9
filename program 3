@@ -1,0 +1,41 @@
+
+
+
+import java.io.*;
+
+public class BinaryFileCopy {
+    public static void main(String[] args) {
+        String sourceFilePath = "source.bin";
+        String targetFilePath = "target.bin";
+
+        // Using Character Stream
+        try (FileReader reader = new FileReader(sourceFilePath);
+             FileWriter writer = new FileWriter(targetFilePath)) {
+
+            int c;
+            while ((c = reader.read()) != -1) {
+                writer.write(c);
+            }
+
+            System.out.println("Binary file copied using character stream.");
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+
+        // Using Byte Stream
+        try (FileInputStream inputStream = new FileInputStream(sourceFilePath);
+             FileOutputStream outputStream = new FileOutputStream(targetFilePath)) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            System.out.println("Binary file copied using byte stream.");
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
