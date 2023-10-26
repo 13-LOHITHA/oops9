@@ -1,0 +1,31 @@
+
+
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ThreeLetterWordCounter {
+    public static void main(String[] args) {
+        String fileName = "your_file.txt"; // Replace with the path to your file
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            int count = 0;
+
+            while ((line = reader.readLine()) != null) {
+                String[] words = line.split("\\s+"); // Split the line into words
+
+                for (String word : words) {
+                    if (word.length() == 3) {
+                        count++;
+                    }
+                }
+            }
+
+            System.out.println("Number of three-letter words in the file: " + count);
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+    }
+}
